@@ -1,0 +1,13 @@
+# Notebook-specific dependencies for development/testing
+# These are not required for the core MCP package functionality
+# Install with: uv pip install -r notebooks/requirements.txt
+
+# OpenAI Agents SDK for notebook examples
+openai-agents>=0.6.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Jupyter notebook support (if not already installed)
+ipykernel>=7.0.0
+ipython>=9.0.0

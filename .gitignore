@@ -1,0 +1,80 @@
+data/
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.venv_kernel.json
+
+# Package manager files
+uv.lock
+
+# Test directory (excluded for first version)
+tests/
+
+# Test output and reports
+results.xml
+test_results.txt
+tests/*_report.txt
+tests/*_conformance_report.txt
+tests/comprehensive_*.txt
+*.xml
+#*.txt
+!requirements*.txt
+!README.txt
+!LICENSE.txt
+
+# Jupyter Notebook checkpoints and outputs
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Notebook database files
+notebooks/memory/*.db
+notebooks/memory/*.sqlite
+
+# IDE and editor files
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*_backup.txt
+*.bak
+*.backup
+
+# Logs
+*.log
+logs/
+
+# Coverage reports
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/

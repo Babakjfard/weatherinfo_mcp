@@ -1,0 +1,142 @@
+
+COMPREHENSIVE STDIO MCP CONFORMANCE TEST REPORT
+===============================================
+
+✅ Testing stdio-based MCP server with comprehensive validation
+   Server Command: /Users/babak.jfard/projects/WeatherInfoMCP/weatherinfo_mcp/.venv/bin/python
+   Server Args: ['-m', 'weatherinfo_mcp.mcp_tools.main']
+   Server CWD: /Users/babak.jfard/projects/WeatherInfoMCP/weatherinfo_mcp
+   Protocol Version: 2025-06-18
+   Test Date: 2025-12-10 15:55:36
+
+Summary:
+--------
+Total Tests: 7
+Passed: 7
+Failed: 0
+Success Rate: 100.0%
+
+Test Categories:
+----------------
+Base MCP Protocol: 3 tests (3 passed)
+WeatherInfo_MCP Specific: 3 tests (3 passed)
+MCP Inspector: 1 tests (1 passed)
+
+Detailed Results:
+----------------
+
+✓ PASS: [BASE] Base MCP Connection and Initialization (0.19s)
+    MCP Spec: Base Protocol - Lifecycle
+    Details: {
+    "protocol_version": "2025-06-18",
+    "has_capabilities": true,
+    "has_server_info": true,
+    "server_name": "nws_weather_server",
+    "server_version": "1.13.0"
+}
+✓ PASS: [BASE] Base MCP Tool Manifest Compliance (0.19s)
+    MCP Spec: Server Features - Tools
+    Details: {
+    "tools_found": 8,
+    "all_tools_valid": true
+}
+✓ PASS: [BASE] Base MCP Tool Execution Compliance (3.72s)
+    MCP Spec: Server Features - Tools
+    Details: {
+    "tool_executed": "create_location",
+    "has_result": true,
+    "result_type": "CallToolResult"
+}
+✓ PASS: [WEATHERINFO_MCP] WeatherInfo_MCP Tool Availability (0.22s)
+    MCP Spec: Server Features - Tools
+    Details: {
+    "expected_tools": [
+        "create_location",
+        "get_current_observation",
+        "get_temperature_from_observation",
+        "get_humidity_from_observation",
+        "get_weather_description_from_observation",
+        "get_wind_info_from_observation",
+        "get_alerts",
+        "get_HeatRisk"
+    ],
+    "available_tools": [
+        "create_location",
+        "get_current_observation",
+        "get_temperature_from_observation",
+        "get_humidity_from_observation",
+        "get_weather_description_from_observation",
+        "get_wind_info_from_observation",
+        "get_alerts",
+        "get_HeatRisk"
+    ],
+    "missing_tools": [],
+    "all_tools_present": true
+}
+✓ PASS: [WEATHERINFO_MCP] WeatherInfo_MCP Location Creation (1.35s)
+    MCP Spec: Server Features - Tools
+    Details: {
+    "location_created": true,
+    "address": "San Francisco, CA",
+    "latitude": 37.7879363,
+    "longitude": -122.4075201,
+    "has_station_url": true
+}
+✓ PASS: [WEATHERINFO_MCP] WeatherInfo_MCP Weather Observation (3.01s)
+    MCP Spec: Server Features - Tools
+    Details: {
+    "observation_retrieved": true,
+    "has_timestamp": true,
+    "has_temperature": true,
+    "has_humidity": true,
+    "observation_keys": [
+        "@id",
+        "@type",
+        "elevation",
+        "station",
+        "stationId",
+        "stationName",
+        "timestamp",
+        "rawMessage",
+        "textDescription",
+        "icon"
+    ]
+}
+✓ PASS: [INSPECTOR] MCP Inspector Availability (0.53s)
+    MCP Spec: Developer Tools
+    Details: {
+    "inspector_available": true,
+    "npx_accessible": true,
+    "help_output_length": 559
+}
+
+Test Coverage:
+--------------
+✅ Base MCP Protocol Tests:
+   - Connection and Initialization (Base Protocol - Lifecycle)
+   - Tool Manifest Compliance (Server Features - Tools)
+   - Tool Execution Compliance (Server Features - Tools)
+
+✅ WeatherInfo_MCP-Specific Tests:
+   - Tool Availability Validation
+   - Location Creation Functionality
+   - Weather Observation Retrieval
+
+✅ MCP Inspector Integration:
+   - Inspector Tool Availability
+   - CLI Integration Testing
+
+Compliance Status:
+------------------
+✅ COMPREHENSIVE TESTING with MCP specification version 2025-06-18
+✅ All required protocol components tested
+✅ Proper stdio transport implementation
+✅ FastMCP server compatibility validated
+✅ WeatherInfo_MCP-specific functionality validated
+
+References:
+-----------
+- MCP Specification: https://modelcontextprotocol.io/specification/2025-06-18
+- FastMCP Documentation: https://github.com/modelcontextprotocol/python-sdk
+- MCP Inspector: https://modelcontextprotocol.io/docs/tools/inspector
+- WeatherInfo_MCP Documentation: ../README.md

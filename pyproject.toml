@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "weatherinfo-mcp"
+version = "0.1.0"
+description = "An MCP to provide access to the environmental data to AI agents"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["geopy", "mcp", "httpx"]
+
+authors = [
+  { name = "Babak J.Fard", email = "babak.jfard@gmail.com" }
+]
+
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+license = { text = "MIT" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["weatherinfo_mcp*"]
+
+[project.scripts]
+weatherinfo-mcp = "weatherinfo_mcp.mcp_tools.main:main"
