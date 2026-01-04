@@ -18,6 +18,11 @@ uv.lock
 # Test directory (excluded for first version)
 tests/
 
+# Internal test documentation
+tests/CONFORMANCE_COMPLETE.md
+tests/FRAMEWORK_STATUS.md
+tests/IMPLEMENTATION_SUMMARY.md
+
 # Test output and reports
 results.xml
 test_results.txt
