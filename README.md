@@ -10,137 +10,6 @@ An MCP (Model Context Protocol) server that provides access to environmental wea
 - ⚠️ **Weather Alerts**: Get active weather alerts for locations
 - 🌡️ **HeatRisk Guidance**: Access HeatRisk information and CDC dashboard links
 
-## Prerequisites
-
-- Python >= 3.12
-- [uv](https://github.com/astral-sh/uv) package manager (recommended) or pip
-- Internet connection (for NWS API access)
-
-## Installation
-
-### Using uv (Recommended)
-
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url> weatherinfo_mcp
-   cd weatherinfo_mcp
-   ```
-
-2. **Install dependencies and create virtual environment:**
-   ```bash
-   uv sync
-   ```
-
-   This will:
-   - Create a virtual environment in `.venv/`
-   - Install all required dependencies
-   - Install the package in editable mode
-
-3. **Activate the virtual environment (optional, but recommended):**
-   ```bash
-   source .venv/bin/activate
-   ```
-
-4. **Install notebook dependencies (optional, for running example notebooks):**
-   ```bash
-   uv pip install -r notebooks/requirements.txt
-   ```
-
-5. **Set up Jupyter kernel (for Jupyter notebooks):**
-   ```bash
-   # Register the kernel with Jupyter
-   .venv/bin/python -m ipykernel install --user --name=weatherinfo_mcp --display-name="Python (weatherinfo_mcp)"
-   ```
-   
-   After this, you'll see "Python (weatherinfo_mcp)" in your Jupyter notebook kernel selector.
-
-### Using pip
-
-1. **Clone and navigate to the project:**
-   ```bash
-   git clone <repository-url> weatherinfo_mcp
-   cd weatherinfo_mcp
-   ```
-
-2. **Create and activate a virtual environment:**
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-
-3. **Install the package:**
-   ```bash
-   pip install -e .
-   ```
-
-## Running Tests
-
-> **⚠️ Note for v0.1.0**: The test suite is not included in this initial release but will be available by request.
-
-The project includes a comprehensive test suite to verify MCP protocol compliance and functionality. Once available, use the following instructions:
-
-### Prerequisites for Testing
-
-Install test framework dependencies:
-```bash
-cd tests
-make install
-```
-
-This will automatically use `uv` if available, or fall back to `pip`.
-
-Alternatively, install manually:
-```bash
-# Using uv (if available)
-uv pip install -r requirements-framework.txt
-
-# Or using pip
-pip install -r requirements-framework.txt
-```
-
-### Running All Tests
-
-```bash
-cd tests
-make test-all
-```
-
-This will run:
-- Base MCP protocol conformance tests
-- WeatherInfoMCP-specific functionality tests
-- MCP Inspector integration tests
-
-### Running Specific Test Suites
-
-```bash
-# Base MCP protocol tests only
-make test-base
-
-# WeatherInfoMCP-specific tests only
-make test-weatherinfo_mcp
-
-# Session lifecycle tests
-make test-lifecycle
-
-# Error handling tests
-make test-errors
-
-# Simple stdio test
-make test-stdio
-
-# Verbose output
-make test-verbose
-```
-
-### Test Reports
-
-Test reports are saved to `tests/` directory:
-- `comprehensive_conformance_report.txt` - Full test results
-- `base_conformance_report.txt` - Base protocol tests
-- `weatherinfo_mcp_conformance_report.txt` - Package-specific tests
-- `session_lifecycle_report.txt` - Session management tests
-- `error_handling_report.txt` - Error handling tests
-
 ## Usage
 
 ### Using Directly from GitHub (No Installation Required) ⚡
@@ -300,7 +169,147 @@ The MCP server provides the following tools:
 7. **`get_alerts`** - Get active weather alerts for a location
 8. **`get_HeatRisk`** - Get HeatRisk guidance and CDC dashboard information
 
-## Project Structure
+## Prerequisites
+
+- Python >= 3.12
+- [uv](https://github.com/astral-sh/uv) package manager (recommended) or pip
+- Internet connection (for NWS API access)
+
+## Installation
+
+### Using uv (Recommended)
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url> weatherinfo_mcp
+   cd weatherinfo_mcp
+   ```
+
+2. **Install dependencies and create virtual environment:**
+   ```bash
+   uv sync
+   ```
+
+   This will:
+   - Create a virtual environment in `.venv/`
+   - Install all required dependencies
+   - Install the package in editable mode
+
+3. **Activate the virtual environment (optional, but recommended):**
+   ```bash
+   source .venv/bin/activate
+   ```
+
+4. **Install notebook dependencies (optional, for running example notebooks):**
+   ```bash
+   uv pip install -r notebooks/requirements.txt
+   ```
+
+5. **Set up Jupyter kernel (for Jupyter notebooks):**
+   ```bash
+   # Register the kernel with Jupyter
+   .venv/bin/python -m ipykernel install --user --name=weatherinfo_mcp --display-name="Python (weatherinfo_mcp)"
+   ```
+   
+   After this, you'll see "Python (weatherinfo_mcp)" in your Jupyter notebook kernel selector.
+
+### Using pip
+
+1. **Clone and navigate to the project:**
+   ```bash
+   git clone <repository-url> weatherinfo_mcp
+   cd weatherinfo_mcp
+   ```
+
+2. **Create and activate a virtual environment:**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. **Install the package:**
+   ```bash
+   pip install -e .
+   ```
+
+## Running Tests
+
+> **⚠️ Note for v0.1.0**: The test suite is not included in this initial release but will be available by request.
+
+The project includes a comprehensive test suite to verify MCP protocol compliance and functionality. Once available, use the following instructions:
+
+### Prerequisites for Testing
+
+Install test framework dependencies:
+```bash
+cd tests
+make install
+```
+
+This will automatically use `uv` if available, or fall back to `pip`.
+
+Alternatively, install manually:
+```bash
+# Using uv (if available)
+uv pip install -r requirements-framework.txt
+
+# Or using pip
+pip install -r requirements-framework.txt
+```
+
+### Running All Tests
+
+```bash
+cd tests
+make test-all
+```
+
+This will run:
+- Base MCP protocol conformance tests
+- WeatherInfoMCP-specific functionality tests
+- MCP Inspector integration tests
+
+### Running Specific Test Suites
+
+```bash
+# Base MCP protocol tests only
+make test-base
+
+# WeatherInfoMCP-specific tests only
+make test-weatherinfo_mcp
+
+# Session lifecycle tests
+make test-lifecycle
+
+# Error handling tests
+make test-errors
+
+# Simple stdio test
+make test-stdio
+
+# Verbose output
+make test-verbose
+```
+
+### Test Reports
+
+Test reports are saved to `tests/` directory:
+- `comprehensive_conformance_report.txt` - Full test results
+- `base_conformance_report.txt` - Base protocol tests
+- `weatherinfo_mcp_conformance_report.txt` - Package-specific tests
+- `session_lifecycle_report.txt` - Session management tests
+- `error_handling_report.txt` - Error handling tests
+
+## Configuration
+
+The package uses the NWS API which is free and requires no API key. The service automatically handles:
+- Location geocoding using geopy
+- Finding nearest NWS weather stations
+- Fetching real-time observations
+
+## Development
+
+### Project Structure
 
 ```
 weatherinfo_mcp/
@@ -323,8 +332,6 @@ weatherinfo_mcp/
 ├── uv.lock                              # Dependency lock file
 └── README.md                            # This file
 ```
-
-## Development
 
 ### Setting Up Development Environment
 
@@ -357,13 +364,6 @@ black src/
 # Lint code (if flake8 is installed)
 flake8 src/
 ```
-
-## Configuration
-
-The package uses the NWS API which is free and requires no API key. The service automatically handles:
-- Location geocoding using geopy
-- Finding nearest NWS weather stations
-- Fetching real-time observations
 
 ## Troubleshooting
 
