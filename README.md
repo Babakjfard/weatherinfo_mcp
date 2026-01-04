@@ -143,6 +143,63 @@ Test reports are saved to `tests/` directory:
 
 ## Usage
 
+### Using Directly from GitHub (No Installation Required) ⚡
+
+The easiest way to use WeatherInfoMCP is directly from GitHub without cloning or installing anything locally. This method uses `uvx` (from the `uv` package manager) to automatically download, install, and run the MCP server from the repository.
+
+**Prerequisites:**
+- [uv](https://github.com/astral-sh/uv) must be installed (it provides the `uvx` command)
+
+**How it works:**
+- `uvx` automatically creates an isolated environment, installs the package from GitHub, and runs it
+- No local repository clone needed
+- No manual dependency management
+- Always uses the latest version from the repository
+
+#### With OpenAI Agents SDK
+
+```python
+from agents import Agent
+from agents.mcp import MCPServerStdio
+
+# Configuration for direct GitHub usage
+PARAMS_WEATHER_MCP = {
+    "name": "weatherinfo-mcp",
+    "command": "uvx",
+    "args": ["--from", "git+https://github.com/Babakjfard/weatherinfo_mcp.git", "weatherinfo-mcp"]
+}
+
+weather_server = MCPServerStdio(params=PARAMS_WEATHER_MCP)
+agent = Agent(
+    name="weather-agent",
+    model="gpt-4",
+    mcp_servers=[weather_server]
+)
+```
+
+#### With Claude Desktop
+
+Add this to your Claude Desktop configuration file (typically `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+
+```json
+{
+  "mcpServers": {
+    "weatherinfo-mcp": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/Babakjfard/weatherinfo_mcp.git", "weatherinfo-mcp"]
+    }
+  }
+}
+```
+
+**Benefits of this approach:**
+- ✅ Zero setup - no cloning, no installation, no virtual environment management
+- ✅ Always up-to-date - uses the latest version from GitHub
+- ✅ Isolated - `uvx` manages dependencies in isolated environments
+- ✅ Portable - works the same way on any system with `uv` installed
+
+**Note:** The first run may take a moment as `uvx` downloads and sets up the package. Subsequent runs are faster due to caching.
+
 ### As an MCP Server
 
 The package can be used as an MCP server with any MCP-compatible client:
