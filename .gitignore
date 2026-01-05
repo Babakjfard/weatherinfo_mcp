@@ -15,10 +15,7 @@ wheels/
 # Package manager files
 uv.lock
 
-# Test directory (excluded for first version)
-tests/
-
-# Internal test documentation
+# Internal test documentation (never share publicly)
 tests/CONFORMANCE_COMPLETE.md
 tests/FRAMEWORK_STATUS.md
 tests/IMPLEMENTATION_SUMMARY.md

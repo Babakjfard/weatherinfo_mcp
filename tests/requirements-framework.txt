@@ -1,0 +1,33 @@
+# MCP Protocol Conformance Test Suite Requirements
+# 
+# This file contains all dependencies needed to run the comprehensive
+# MCP protocol conformance test suite for WeatherInfoMCP.
+
+# Core dependencies
+httpx>=0.25.0          # HTTP client for async requests
+jsonschema>=4.19.0     # JSON schema validation
+pydantic>=2.0.0        # Data validation and settings
+
+# Testing framework
+pytest>=7.0.0          # Testing framework
+pytest-asyncio>=0.21.0 # Async testing support
+
+# Enhanced functionality
+aiofiles>=23.0.0       # Async file operations
+rich>=13.0.0           # Rich text and beautiful formatting
+click>=8.0.0           # Command line interface creation
+
+# Security and quality tools
+bandit>=1.7.0          # Security linting
+safety>=2.3.0          # Security vulnerability scanning
+
+# Performance testing
+locust>=2.0.0          # Load testing framework
+
+# Development dependencies
+black>=23.0.0          # Code formatting
+flake8>=6.0.0          # Linting
+mypy>=1.0.0            # Type checking
+
+# CI/CD integration
+junit-xml>=1.9          # JUnit XML report generation
