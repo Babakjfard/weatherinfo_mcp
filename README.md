@@ -234,8 +234,6 @@ The MCP server provides the following tools:
 
 ## Running Tests
 
-> **⚠️ Note for v0.1.0**: The test suite is not included in this initial release but will be available by request.
-
 The project includes a comprehensive test suite to verify MCP protocol compliance and functionality. Once available, use the following instructions:
 
 ### Prerequisites for Testing
