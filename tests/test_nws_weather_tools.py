@@ -10,7 +10,6 @@ These tests demonstrate best practices:
 - Pure function testing for extraction tools.
 - Docstrings clarify use, expected inputs, and outputs for maintainability and reproducibility.
 
-This file is educational as well as practical, intended for both publication and team use.
 """
 
 import unittest

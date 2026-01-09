@@ -1,8 +1,6 @@
 # MCP Protocol Conformance Test Suite
 
-## ✅ Complete Implementation
-
-This is a **complete** MCP Protocol Conformance Test Suite that implements comprehensive testing based on the official MCP specification version 2025-06-18. The test suite provides full validation of MCP protocol compliance and WeatherInfoMCP-specific functionality.
+The Test Suite that implements comprehensive testing based on the official MCP specification version 2025-06-18. The test suite provides full validation of MCP protocol compliance and WeatherInfoMCP-specific functionality.
 
 ## Current Status
 
@@ -12,25 +10,42 @@ This is a **complete** MCP Protocol Conformance Test Suite that implements compr
 - ✅ **Tool Manifest Validation**: Comprehensive tool validation
 - ✅ **Session Lifecycle**: Complete session management testing
 - ✅ **Tool Execution**: Full tool execution compliance testing
-- ✅ **WeatherInfoMCP-Specific Tests**: All 8 WeatherInfoMCP tools validated
-- ✅ **CI/CD Integration**: Complete CI/CD pipeline support
+- ✅ **WeatherInfoMCP-Specific Tests**: All WeatherInfoMCP tools validated
 
-## What's Implemented
+## Test Coverage
 
-This conformance test suite provides:
+This conformance test suite covers:
 
-1. **Official MCP Specification 2025-06-18**: Complete implementation based on official specification
-2. **Schema Definitions**: Complete JSON schemas for all MCP protocol messages
-3. **Capability Definitions**: Full capability declarations and requirements validation
-4. **Error Code Standards**: Comprehensive error codes and handling validation
-5. **Session Lifecycle**: Complete session management and lifecycle testing
-6. **WeatherInfoMCP Integration**: Full validation of all 8 WeatherInfoMCP tools and functionality
+1. **MCP Protocol Compliance**: Tests against MCP specification version 2025-06-18
+2. **JSON-RPC 2.0 Compliance**: Standard JSON-RPC 2.0 validation
+3. **Session Management**: Session initialization, lifecycle, and termination
+4. **Tool Manifest Validation**: Tool structure, metadata, and schema validation
+5. **Tool Execution**: Parameter validation, response structure, and execution correctness
+6. **Error Handling**: Error codes, error messages, and recovery mechanisms
+7. **WeatherInfoMCP Tools**: Validation of all 8 WeatherInfoMCP tools (create_location, get_current_observation, get_temperature_from_observation, get_humidity_from_observation, get_weather_description_from_observation, get_wind_info_from_observation, get_alerts, get_HeatRisk)
+8. **Unit Tests**: Isolated testing of core Location service and tool functions
 
-## Framework Components
+## Test Suite Components
 
-### Core Framework (`mcp_conformance_framework.py`)
+The test suite consists of several test modules:
 
-The main framework provides:
+### Main Test Files
+
+- **`comprehensive_stdio_tests.py`**: Main conformance test suite for stdio-based MCP servers
+  - Base MCP protocol tests
+  - WeatherInfoMCP-specific functionality tests
+  - MCP Inspector integration tests
+- **`test_session_lifecycle.py`**: Specialized, detailed session lifecycle tests (7 tests covering handshake, version negotiation, state transitions, termination, timeouts). More comprehensive than the basic connection test in `comprehensive_stdio_tests.py`
+- **`test_error_handling.py`**: Specialized, detailed error handling tests (10 tests covering error structure, message clarity, method not found, invalid params, validation errors, API errors, stability, retry logic, timeouts, cancellation). Not covered by `comprehensive_stdio_tests.py`
+- **`simple_stdio_test.py`**: Simple diagnostic script for quick server connectivity check (largely superseded by `comprehensive_stdio_tests.py`, but useful for quick diagnostics)
+- **`stdio_mcp_conformance_framework.py`**: Basic conformance framework with 4 core tests (connection, tool manifest, tool execution, session lifecycle). Can be run independently, but largely superseded by `comprehensive_stdio_tests.py`
+
+### Unit Tests
+
+- **`test_nws_location_service.py`**: Unit tests for the `Location` class using `unittest`
+- **`test_nws_weather_tools.py`**: Unit tests for MCP tool functions using `unittest`
+
+### Test Framework Features
 
 - **Connection Testing**: Server reachability and initialization
 - **JSON-RPC Compliance**: Standard JSON-RPC 2.0 validation
@@ -44,7 +59,7 @@ The main framework provides:
 - **Schema Validation**: JSON schema validation for all messages
 - **Detailed Reporting**: Comprehensive test reports with timing and details
 - **Extensible Design**: Easy to add new test cases once spec is available
-- **CI/CD Ready**: Designed for integration with continuous integration
+- **CI/CD Compatible**: Tests can be integrated into CI/CD pipelines (JUnit XML output supported)
 
 ## Installation
 
@@ -94,94 +109,163 @@ make test-verbose
 
 ### Manual Test Execution
 
-You can also run tests directly:
+You can also run tests directly using Python. First, navigate to the `tests/` directory and activate the virtual environment:
 
 ```bash
-# Using the Makefile's Python detection (recommended)
-../.venv/bin/python comprehensive_stdio_tests.py --test-type all
-
-# Or if venv is activated
-python comprehensive_stdio_tests.py --test-type all --verbose
+cd tests
+source ../.venv/bin/activate  # On Windows: ..\.venv\Scripts\activate
 ```
+
+Then run tests with `python`:
+
+```bash
+# Comprehensive tests
+python comprehensive_stdio_tests.py --test-type all --output ../test_results/comprehensive_conformance_report.txt
+
+# Session lifecycle tests
+python test_session_lifecycle.py --output ../test_results/session_lifecycle_report.txt
+
+# Error handling tests
+python test_error_handling.py --output ../test_results/error_handling_report.txt
+
+# Simple diagnostic test (no output file needed)
+python simple_stdio_test.py
+```
+
+**Note:** If the virtual environment is not activated, you can use the full path: `../.venv/bin/python` instead of `python`.
 
 ### Command Line Options
 
-The test scripts support:
+**`comprehensive_stdio_tests.py`** supports:
 - `--test-type`: Test category (`base`, `weatherinfo_mcp`, `inspector`, `all`)
 - `--timeout`: Request timeout in seconds (default: 30)
-- `--output`: Output file for test report
+- `--output`: Output file path for test report (recommended: `../test_results/filename.txt`)
 - `--verbose`: Enable verbose logging
+- `--server-command`: Command to start the MCP server (optional, uses venv Python by default)
+- `--server-args`: Arguments to pass to the server (optional)
+- `--server-cwd`: Working directory for the server (optional)
 
-## Test Categories
+**`test_session_lifecycle.py`** and **`test_error_handling.py`** support:
+- `--timeout`: Request timeout in seconds (default: 30)
+- `--output`: Output file path for test report
+- `--verbose`: Enable verbose logging
+- `--server-command`: Command to start the MCP server (optional, uses venv Python by default)
+- `--server-args`: Arguments to pass to the server (optional)
+- `--server-cwd`: Working directory for the server (optional)
 
-### 1. Connection and Initialization
-- Server reachability
-- MCP protocol initialization
+### Running Unit Tests
+
+The unit tests use Python's standard `unittest` framework. Run from the `tests/` directory:
+
+```bash
+# Run all unit tests using pytest
+cd tests
+pytest test_nws_location_service.py test_nws_weather_tools.py -v
+
+# Or using unittest directly
+python -m unittest test_nws_location_service test_nws_weather_tools
+
+# Or from project root
+pytest tests/test_nws_location_service.py tests/test_nws_weather_tools.py -v
+```
+
+### Test Reports
+
+Test reports are saved to the `test_results/` directory (one level up from `tests/`):
+- `comprehensive_conformance_report.txt` - Full test results (all test categories)
+- `base_conformance_report.txt` - Base MCP protocol tests
+- `weatherinfo_mcp_conformance_report.txt` - WeatherInfoMCP-specific tests
+- `inspector_conformance_report.txt` - MCP Inspector integration tests
+- `session_lifecycle_report.txt` - Session management and protocol version tests
+- `error_handling_report.txt` - Error handling and recovery tests
+
+The `test_results/` directory is created automatically when running tests via the Makefile.
+
+## Test Categories by Test File
+
+### `comprehensive_stdio_tests.py` - Main Conformance Tests
+
+**Base MCP Protocol Tests** (`--test-type base`):
+- Connection and initialization: Validates server connection, initialization handshake, and required fields (protocolVersion, capabilities, serverInfo)
+- Tool manifest compliance: Validates tool structure, metadata, and schemas (name, description, inputSchema)
+- Tool execution compliance: Tests tool execution with parameter validation and response structure validation
+
+**Note:** These tests validate MCP protocol compliance through the stdio transport layer, which uses JSON-RPC 2.0 for communication. Explicit JSON-RPC 2.0 compliance testing (batch requests, content-type validation, etc.) is covered in the specialized `test_error_handling.py` suite.
+
+**WeatherInfoMCP-Specific Tests** (`--test-type weatherinfo_mcp`):
+- Tool availability validation: Verifies all 8 expected WeatherInfoMCP tools are present
+- Location creation functionality: Tests `create_location` tool with address input and validates returned location data structure (address, latitude, longitude, station_url)
+- Weather observation retrieval: Tests `get_current_observation` tool by creating a location first, then fetching and validating observation data structure
+
+**MCP Inspector Tests** (`--test-type inspector`):
+- Inspector tool availability
+- Inspector integration validation
+
+### `test_session_lifecycle.py` - Session Lifecycle Tests
+
+- Session initialization handshake
+- Protocol version negotiation
 - Capability negotiation
-- Session establishment
+- Session state transitions
+- Pre-initialization request rejection
+- Session termination and cleanup
+- Timeout and keepalive handling
 
-### 2. JSON-RPC Compliance
-- Request/response format validation
-- Error handling compliance
-- Batch request support
-- Content-Type validation
+### `test_error_handling.py` - Error Handling Tests
 
-### 3. Tool Manifest Compliance
-- Tool structure validation
-- Metadata completeness
-- Schema validation
-- Naming conventions
+- Error response structure compliance
+- Error message clarity
+- Method not found errors
+- Invalid parameters errors
+- Validation error handling
+- External API error handling
+- Server stability after errors
+- Retry logic support
+- Timeout and cancellation handling
 
-### 4. Tool Execution
-- Parameter validation
-- Response structure validation
-- Error handling
-- Performance testing
+### `test_nws_location_service.py` & `test_nws_weather_tools.py` - Unit Tests
 
-### 5. Error Handling
-- Standard error codes
-- Error message format
-- Error data structure
-- Graceful degradation
+- Isolated testing of Location class functionality
+- Isolated testing of tool functions without MCP layer
+- Mock-based testing for external API dependencies
 
-## Framework Architecture
+## Test Suite Structure
 
 ```
-MCPConformanceFramework
-├── Connection Testing
-├── JSON-RPC Validation
-├── Tool Manifest Testing
-├── Tool Execution Testing
-├── Error Handling Testing
-└── Reporting System
+tests/
+├── comprehensive_stdio_tests.py          # Main conformance test suite
+├── test_session_lifecycle.py            # Session lifecycle tests
+├── test_error_handling.py               # Error handling tests
+├── simple_stdio_test.py                 # Simple diagnostic test
+├── stdio_mcp_conformance_framework.py   # Basic framework (4 core tests, largely superseded)
+├── test_nws_location_service.py         # Unit tests (unittest)
+├── test_nws_weather_tools.py            # Unit tests (unittest)
+├── Makefile                             # Test runner automation
+└── requirements-framework.txt           # Test dependencies
+
+test_results/                             # Test reports (created automatically)
+├── comprehensive_conformance_report.txt
+├── base_conformance_report.txt
+├── weatherinfo_mcp_conformance_report.txt
+├── inspector_conformance_report.txt
+├── session_lifecycle_report.txt
+└── error_handling_report.txt
 ```
 
 ## Integration with Official Specification
 
-Once the official MCP specification is available, the framework will be updated with:
-
-1. **Exact Protocol Requirements**: All mandatory and optional features
-2. **Official Schemas**: JSON schemas from the specification
-3. **Capability Definitions**: Official capability declarations
-4. **Error Standards**: Official error codes and messages
-5. **Session Management**: Official session lifecycle requirements
+The test suite is based on the MCP specification version 2025-06-18 and validates protocol compliance through:
+- MCP Python SDK implementation patterns
+- JSON-RPC 2.0 standards
+- Observable MCP protocol behavior
+- FastMCP framework conventions
 
 ## Development Workflow
 
 1. **Framework Development**: ✅ Complete
-2. **Specification Integration**: ⏳ Pending official spec
-3. **Test Case Implementation**: ⏳ Pending official spec
-4. **Validation and Testing**: ⏳ Pending official spec
-5. **Documentation**: ⏳ Pending official spec
-
-## Contributing
-
-This framework is designed to be updated with the official MCP specification. Contributions should focus on:
-
-1. **Framework Improvements**: Better architecture, performance, usability
-2. **Test Infrastructure**: Enhanced testing capabilities
-3. **Documentation**: Better documentation and examples
-4. **Integration**: CI/CD integration and automation
+2. **Test Implementation**: ✅ Complete - Tests implemented based on MCP 2025-06-18 specification
+3. **Validation and Testing**: ✅ Complete - Comprehensive test coverage for protocol compliance
+4. **Documentation**: ✅ Complete - Framework and test documentation available
 
 ## References
 
@@ -206,5 +290,5 @@ For questions about this framework or MCP conformance testing, please:
 
 **Framework Version**: 1.0.0  
 **Last Updated**: 2025-10-23  
-**Status**: ⚠️ Framework Complete - Needs Official MCP Specification  
-**Next Step**: Obtain and integrate official MCP specification version 2025-06-18
+**Status**: ✅ Framework Complete - Testing MCP specification version 2025-06-18  
+**MCP Specification**: https://modelcontextprotocol.io/specification/2025-06-18
