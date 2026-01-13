@@ -1,5 +1,7 @@
 # WeatherInfoMCP
 
+[![DOI](https://zenodo.org/badge/1119762721.svg)](https://doi.org/10.5281/zenodo.18227188)
+
 An MCP (Model Context Protocol) server that provides access to environmental weather data for AI agents through the National Weather Service (NWS) API.
 
 ## Features
